@@ -2,7 +2,7 @@ const express = require('express')
 const path = require('path')
 const bodyParser = require('body-parser')
 const cors = require('cors');
-const BigIntx = require('big-integer')
+const BigInt = require('big-integer')
 
 
 const PORT = process.env.PORT || 5005
@@ -19,22 +19,22 @@ app.use(cors());
 // Static public files 39843667585415780254295230251369992668648887569988387513119n
 app.use(express.static(path.join(__dirname, 'public')))
 
-const HEARTS_UINT_SHIFT = BigIntx(72);
-const HEARTS_MASK = BigIntx((BigIntx(1) << HEARTS_UINT_SHIFT) - BigIntx(1));
-const SATS_UINT_SHIFT = BigIntx(56);
-const SATS_MASK = BigIntx((BigIntx(1) << SATS_UINT_SHIFT) - BigIntx(1));
+const HEARTS_UINT_SHIFT = BigInt(72);
+const HEARTS_MASK = BigInt((BigInt(1) << HEARTS_UINT_SHIFT) - BigInt(1));
+const SATS_UINT_SHIFT = BigInt(56);
+const SATS_MASK = BigInt((BigInt(1) << SATS_UINT_SHIFT) - BigInt(1));
 //console.log({HEARTS_UINT_SHIFT,HEARTS_MASK,SATS_UINT_SHIFT,SATS_MASK})
 const decodeDailyDatax = (encDay) => {
   try {
-    let v = BigIntx(encDay);
+    let v = BigInt(encDay);
     let payout = v & HEARTS_MASK;
     console.log({ v, HEARTS_UINT_SHIFT, HEARTS_MASK, payout });
     v = v >> HEARTS_UINT_SHIFT;
-    //v = BigIntx(v.value >> HEARTS_UINT_SHIFT.value);
+    //v = BigInt(v.value >> HEARTS_UINT_SHIFT.value);
     let shares = v & HEARTS_MASK;
     v = v >> HEARTS_UINT_SHIFT;
     console.log({ v, HEARTS_UINT_SHIFT, HEARTS_MASK, payout, shares });
-    //v = BigIntx(v.value >> HEARTS_UINT_SHIFT.value);
+    //v = BigInt(v.value >> HEARTS_UINT_SHIFT.value);
     let sats = v & SATS_MASK;
     console.log({ payout, shares, sats });
     return {
@@ -48,15 +48,15 @@ const decodeDailyDatax = (encDay) => {
 };
 
 const decodeDailyData = (encDay) => {
-  let v = BigIntx(encDay);
+  let v = BigInt(encDay);
   let payout = v.value & HEARTS_MASK.value;
   console.log({ v, HEARTS_UINT_SHIFT, HEARTS_MASK, payout })
   v = v.shiftRight(HEARTS_UINT_SHIFT);
-  //v = BigIntx(v.value >> HEARTS_UINT_SHIFT.value);
+  //v = BigInt(v.value >> HEARTS_UINT_SHIFT.value);
   let shares = v.value & HEARTS_MASK.value;
   v = v.shiftRight(HEARTS_UINT_SHIFT);
   //console.log({ v, HEARTS_UINT_SHIFT, HEARTS_MASK, payout, shares })
-  //v = BigIntx(v.value >> HEARTS_UINT_SHIFT.value);
+  //v = BigInt(v.value >> HEARTS_UINT_SHIFT.value);
   let sats = v.value & SATS_MASK.value;
   //console.log({ payout, shares, sats });
   return { payout: parseInt(payout), shares: parseInt(shares), sats: parseInt(sats), };
