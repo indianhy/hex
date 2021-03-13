@@ -24,22 +24,26 @@ const SATS_UINT_SHIFT = BigInt(56);
 const SATS_MASK = BigInt((BigInt(1) << SATS_UINT_SHIFT) - BigInt(1));
 //console.log({HEARTS_UINT_SHIFT,HEARTS_MASK,SATS_UINT_SHIFT,SATS_MASK})
 const decodeDailyData = (encDay) => {
-  let v = BigInt(encDay);
-  let payout = v & HEARTS_MASK;
-  console.log({ v, HEARTS_UINT_SHIFT, HEARTS_MASK, payout });
-  v = v >> HEARTS_UINT_SHIFT;
-  //v = BigInt(v.value >> HEARTS_UINT_SHIFT.value);
-  let shares = v & HEARTS_MASK;
-  v = v >> HEARTS_UINT_SHIFT;
-  console.log({ v, HEARTS_UINT_SHIFT, HEARTS_MASK, payout, shares });
-  //v = BigInt(v.value >> HEARTS_UINT_SHIFT.value);
-  let sats = v & SATS_MASK;
-  console.log({ payout, shares, sats });
-  return {
-    payout: parseInt(payout.toString()),
-    shares: parseInt(shares.toString()),
-    sats: parseInt(sats.toString()),
-  };
+  try {
+    let v = BigInt(encDay);
+    let payout = v & HEARTS_MASK;
+    console.log({ v, HEARTS_UINT_SHIFT, HEARTS_MASK, payout });
+    v = v >> HEARTS_UINT_SHIFT;
+    //v = BigInt(v.value >> HEARTS_UINT_SHIFT.value);
+    let shares = v & HEARTS_MASK;
+    v = v >> HEARTS_UINT_SHIFT;
+    console.log({ v, HEARTS_UINT_SHIFT, HEARTS_MASK, payout, shares });
+    //v = BigInt(v.value >> HEARTS_UINT_SHIFT.value);
+    let sats = v & SATS_MASK;
+    console.log({ payout, shares, sats });
+    return {
+      payout: parseInt(payout.toString()),
+      shares: parseInt(shares.toString()),
+      sats: parseInt(sats.toString()),
+    };
+  } catch (e) {
+    throw new Error(e);
+  }
 };
 
 
