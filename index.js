@@ -49,15 +49,15 @@ const decodeDailyDatax = (encDay) => {
 
 const decodeDailyData = (encDay) => {
   let v = BigInt(encDay);
-  let payout = v.value & HEARTS_MASK.value;
+  let payout = v.and(HEARTS_MASK);
   console.log({ v, HEARTS_UINT_SHIFT, HEARTS_MASK, payout })
   v = v.shiftRight(HEARTS_UINT_SHIFT);
   //v = BigInt(v.value >> HEARTS_UINT_SHIFT.value);
-  let shares = v.value & HEARTS_MASK.value;
+  let shares = v.and(HEARTS_MASK);
   v = v.shiftRight(HEARTS_UINT_SHIFT);
   //console.log({ v, HEARTS_UINT_SHIFT, HEARTS_MASK, payout, shares })
   //v = BigInt(v.value >> HEARTS_UINT_SHIFT.value);
-  let sats = v.value & SATS_MASK.value;
+  let sats = v.and(SATS_MASK);
   //console.log({ payout, shares, sats });
   return { payout: parseInt(payout), shares: parseInt(shares), sats: parseInt(sats), };
 };
