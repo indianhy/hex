@@ -62,8 +62,18 @@ const decodeDailyData = (encDay) => {
   return { payout: parseInt(payout), shares: parseInt(shares), sats: parseInt(sats), };
 };
 
-app.get('/:encDay', function (req, res) {
+app.get('/ddd/:encDay', function (req, res) {
   var metadata = decodeDailyData(req.params.encDay);
+  res.send(metadata);
+})
+
+app.get('/', function (req, res) {
+  var metadata = { payout: 0, shares: 0, sats: 0, };
+  res.send(metadata);
+})
+
+app.get('/ddd', function (req, res) {
+  var metadata = { payout: 0, shares: 0, sats: 0, };
   res.send(metadata);
 })
 
