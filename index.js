@@ -23,9 +23,9 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 
 const HEARTS_UINT_SHIFT = BigInt(72);
-const HEARTS_MASK = (BigInt(1) << HEARTS_UINT_SHIFT) - BigInt(1);
+const HEARTS_MASK = BigInt((BigInt(1) << HEARTS_UINT_SHIFT) - BigInt(1));
 const SATS_UINT_SHIFT = BigInt(56);
-const SATS_MASK = (BigInt(1) << SATS_UINT_SHIFT) - BigInt(1);
+const SATS_MASK = BigInt((BigInt(1) << SATS_UINT_SHIFT) - BigInt(1));
 const decodeDailyData = (encDay) => {
   let v = BigInt(encDay);
   console.log({ v, HEARTS_UINT_SHIFT, HEARTS_MASK, });
