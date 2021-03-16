@@ -29,12 +29,12 @@ const SATS_MASK = BigInt((BigInt(1) << SATS_UINT_SHIFT) - BigInt(1));
 const decodeDailyData = (encDay) => {
   let v = BigInt(encDay);
   console.log({ v, HEARTS_UINT_SHIFT, HEARTS_MASK, });
-  let payout = v & HEARTS_MASK;
-  console.log({ v, payout });
-  v = v >> HEARTS_UINT_SHIFT;
-  let shares = v & HEARTS_MASK;
-  v = v >> HEARTS_UINT_SHIFT;
-  let sats = v & SATS_MASK;
+  let payout = v.and(HEARTS_MASK);
+  //console.log({ v, payout });
+  v = v.shiftRight(HEARTS_UINT_SHIFT);
+  let shares = v.and(HEARTS_MASK);
+  v = v.shiftRight(HEARTS_UINT_SHIFT);
+  let sats = v.and(SATS_MASK);
   //return { payout: BigInt(payout), shares: BigInt(shares), sats: BigInt(sats), };
   return { payout, shares, sats };
 }
