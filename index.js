@@ -54,7 +54,7 @@ const getDataRange = async (dataRange) => {
 
 
 app.post('/data/', function (req, res) {
-  var result = getDataRange(JSON.parse(req.body.data));
+  var result = getDataRange(req.body.data);
   res.send(result);
 })
 
